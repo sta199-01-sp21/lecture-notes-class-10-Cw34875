@@ -101,6 +101,7 @@ prop.table(counts)
 ```
 
 How close is this value to the "true" probability?
+This value is pretty close to the true probability. As we increase our size/trials, we get closer to the "true" probability. But of course, we can always experience some deviation from the true probability by random chance.
 
 **To summarize our process:**
 
@@ -166,11 +167,15 @@ roll_results <- tibble(
 ```
 
 ```{r identify_events}
-
+roll_results <- roll_results %>%
+  mutate(event_1 = die_1^2 == die_2,
+         event_2 = abs(die_1 - die_2) == 4)
 ```
 
 ```{r summarize_rolls}
-
+roll_results %>%
+  summarize(event_1_prob= mean(event_1),
+            event_2_prob = mean(event_2))
 ```
 
 ## Additional Resources-please look at before Weds.
